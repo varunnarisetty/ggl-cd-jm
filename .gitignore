@@ -18,6 +18,9 @@ develop-eggs
 lib
 lib64
 
+#notepad backup dir
+nppBackup
+
 # Installer logs
 pip-log.txt
 
