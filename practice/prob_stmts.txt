@@ -1,0 +1,794 @@
+Problem B. Watersheds
+
+
+Geologists sometimes divide an area of land into different regions based on where rainfall flows down to. These regions are called drainage basins.
+
+Given an elevation map (a 2-dimensional array of altitudes), label the map such that locations in the same drainage basin have the same label, subject to the following rules.
+
+From each cell, water flows down to at most one of its 4 neighboring cells.
+For each cell, if none of its 4 neighboring cells has a lower altitude than the current cell's, then the water does not flow, and the current cell is called a sink.
+Otherwise, water flows from the current cell to the neighbor with the lowest altitude.
+In case of a tie, water will choose the first direction with the lowest altitude from this list: North, West, East, South.
+Every cell that drains directly or indirectly to the same sink is part of the same drainage basin. Each basin is labeled by a unique lower-case letter, in such a way that, when the rows of the map are concatenated from top to bottom, the resulting string is lexicographically smallest. (In particular, the basin of the most North-Western cell is always labeled 'a'.)
+Input
+
+The first line of the input file will contain the number of maps, T. T maps will follow, each starting with two integers on a line -- H and W -- the height and width of the map, in cells. The next H lines will each contain a row of the map, from north to south, each containing W integers, from west to east, specifying the altitudes of the cells.
+
+Output
+
+For each test case, output 1+H lines. The first line must be of the form
+
+Case #X:
+where X is the test case number, starting from 1. The next H lines must list the basin labels for each of the cells, in the same order as they appear in the input.
+Limits
+
+T = 100;
+Small dataset
+
+1 = H, W = 10;
+0 = altitudes < 10.
+There will be at most two basins.
+
+Large dataset
+
+1 = H, W = 100;
+0 = altitudes < 10,000.
+There will be at most 26 basins.
+Sample
+
+
+Input 
+ 	
+Output 
+ 
+5
+3 3
+9 6 3
+5 9 6
+3 5 9
+1 10
+0 1 2 3 4 5 6 7 8 7
+2 3
+7 6 7
+7 6 7
+5 5
+1 2 3 4 5
+2 9 3 9 6
+3 3 0 8 7
+4 9 8 9 8
+5 6 7 8 9
+2 13
+8 8 8 8 8 8 8 8 8 8 8 8 8
+8 8 8 8 8 8 8 8 8 8 8 8 8
+Case #1:
+a b b
+a a b
+a a a
+Case #2:
+a a a a a a a a a b
+Case #3:
+a a a
+b b b
+Case #4:
+a a a a a
+a a b b a
+a b b b a
+a b b b a
+a a a a a
+Case #5:
+a b c d e f g h i j k l m
+n o p q r s t u v w x y z
+Notes
+
+In Case #1, the upper-right and lower-left corners are sinks. Water from the diagonal flows towards the lower-left because of the lower altitude (5 versus 6).
+
+
+Problem C. Welcome to Code Jam
+
+Problem
+
+So you've registered. We sent you a welcoming email, to welcome you to code jam. But it's possible that you still don't feel welcomed to code jam. That's why we decided to name a problem "welcome to code jam." After solving this problem, we hope that you'll feel very welcome. Very welcome, that is, to code jam.
+
+If you read the previous paragraph, you're probably wondering why it's there. But if you read it very carefully, you might notice that we have written the words "welcome to code jam" several times: 400263727 times in total. After all, it's easy to look through the paragraph and find a 'w'; then find an 'e' later in the paragraph; then find an 'l' after that, and so on. Your task is to write a program that can take any text and print out how many times that text contains the phrase "welcome to code jam".
+
+To be more precise, given a text string, you are to determine how many times the string "welcome to code jam" appears as a sub-sequence of that string. In other words, find a sequence s of increasing indices into the input string such that the concatenation of input[s[0]], input[s[1]], ..., input[s[18]] is the string "welcome to code jam".
+
+The result of your calculation might be huge, so for convenience we would only like you to find the last 4 digits.
+
+Input
+
+The first line of input gives the number of test cases, N. The next N lines of input contain one test case each. Each test case is a single line of text, containing only lower-case letters and spaces. No line will start with a space, and no line will end with a space.
+
+Output
+
+For each test case, "Case #x: dddd", where x is the case number, and dddd is the last four digits of the answer. If the answer has fewer than 4 digits, please add zeroes at the front of your answer to make it exactly 4 digits long.
+
+Limits
+
+1 = N = 100
+Small dataset
+
+Each line will be no longer than 30 characters.
+Large dataset
+
+Each line will be no longer than 500 characters.
+Sample
+
+
+Input 
+ 	
+Output 
+ 
+3
+elcomew elcome to code jam
+wweellccoommee to code qps jam
+welcome to codejam
+
+Case #1: 0001
+Case #2: 0256
+Case #3: 0000
+
+
+Problem A. Alien Numbers
+Problem
+
+The decimal numeral system is composed of ten digits, which we represent as "0123456789" (the digits in a system are written from lowest to highest). Imagine you have discovered an alien numeral system composed of some number of digits, which may or may not be the same as those used in decimal. For example, if the alien numeral system were represented as "oF8", then the numbers one through ten would be (F, 8, Fo, FF, F8, 8o, 8F, 88, Foo, FoF). We would like to be able to work with numbers in arbitrary alien systems. More generally, we want to be able to convert an arbitrary number that's written in one alien system into a second alien system.
+
+Input
+
+The first line of input gives the number of cases, N. N test cases follow. Each case is a line formatted as
+
+alien_number source_language target_language
+Each language will be represented by a list of its digits, ordered from lowest to highest value. No digit will be repeated in any representation, all digits in the alien number will be present in the source language, and the first digit of the alien number will not be the lowest valued digit of the source language (in other words, the alien numbers have no leading zeroes). Each digit will either be a number 0-9, an uppercase or lowercase letter, or one of the following symbols !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+
+Output
+
+For each test case, output one line containing "Case #x: " followed by the alien number translated from the source language to the target language.
+
+Limits
+
+1 = N = 100.
+
+Small dataset
+
+1 = num digits in alien_number = 4,
+2 = num digits in source_language = 16,
+2 = num digits in target_language = 16.
+
+Large dataset
+
+1 = alien_number (in decimal) = 1000000000,
+2 = num digits in source_language = 94,
+2 = num digits in target_language = 94.
+
+Sample
+
+
+Input 
+
+Output 
+4
+9 0123456789 oF8
+Foo oF8 0123456789
+13 0123456789abcdef 01
+CODE O!CDE? A?JM!.
+
+Case #1: Foo
+Case #2: 9
+Case #3: 10011
+Case #4: JAM!
+
+
+Problem B. Always Turn Left
+Problem
+
+You find yourself standing outside of a perfect maze. A maze is defined as "perfect" if it meets the following conditions:
+
+It is a rectangular grid of rooms, R rows by C columns.
+There are exactly two openings on the outside of the maze: the entrance and the exit. The entrance is always on the north wall, while the exit could be on any wall.
+There is exactly one path between any two rooms in the maze (that is, exactly one path that does not involve backtracking).
+You decide to solve the perfect maze using the "always turn left" algorithm, which states that you take the leftmost fork at every opportunity. If you hit a dead end, you turn right twice (180 degrees clockwise) and continue. (If you were to stick out your left arm and touch the wall while following this algorithm, you'd solve the maze without ever breaking contact with the wall.) Once you finish the maze, you decide to go the extra step and solve it again (still always turning left), but starting at the exit and finishing at the entrance.
+
+The path you take through the maze can be described with three characters: 'W' means to walk forward into the next room, 'L' means to turn left (or counterclockwise) 90 degrees, and 'R' means to turn right (or clockwise) 90 degrees. You begin outside the maze, immediately adjacent to the entrance, facing the maze. You finish when you have stepped outside the maze through the exit. For example, if the entrance is on the north and the exit is on the west, your path through the following maze would be WRWWLWWLWWLWLWRRWRWWWRWWRWLW:
+
+
+If the entrance and exit were reversed such that you began outside the west wall and finished out the north wall, your path would be WWRRWLWLWWLWWLWWRWWRWWLW. Given your two paths through the maze (entrance to exit and exit to entrance), your code should return a description of the maze.
+
+Input
+
+The first line of input gives the number of cases, N. N test cases follow. Each case is a line formatted as
+
+entrance_to_exit exit_to_entrance
+All paths will be at least two characters long, consist only of the characters 'W', 'L', and 'R', and begin and end with 'W'.
+
+Output
+
+For each test case, output one line containing "Case #x:" by itself. The next R lines give a description of the R by C maze. There should be C characters in each line, representing which directions it is possible to walk from that room. Refer to the following legend:
+
+Character  	Can walk north?  	Can walk south?  	Can walk west?  	Can walk east?  
+1	Yes	No	No	No
+2	No	Yes	No	No
+3	Yes	Yes	No	No
+4	No	No	Yes	No
+5	Yes	No	Yes	No
+6	No	Yes	Yes	No
+7	Yes	Yes	Yes	No
+8	No	No	No	Yes
+9	Yes	No	No	Yes
+a	No	Yes	No	Yes
+b	Yes	Yes	No	Yes
+c	No	No	Yes	Yes
+d	Yes	No	Yes	Yes
+e	No	Yes	Yes	Yes
+f	Yes	Yes	Yes	Yes
+Limits
+
+1 = N = 100.
+
+Small dataset
+
+2 = len(entrance_to_exit) = 100,
+2 = len(exit_to_entrance) = 100.
+
+Large dataset
+
+2 = len(entrance_to_exit) = 10000,
+2 = len(exit_to_entrance) = 10000.
+
+Sample
+
+
+Input 
+2
+WRWWLWWLWWLWLWRRWRWWWRWWRWLW WWRRWLWLWWLWWLWWRWWRWWLW
+WW WW
+
+Output 
+Case #1:
+ac5
+386
+9c7
+e43
+9c5
+Case #2:
+3
+
+Problem C. Egg Drop
+Problem
+
+Imagine that you are in a building with F floors (starting at floor 1, the lowest floor), and you have a large number of identical eggs, each in its own identical protective container. For each floor in the building, you want to know whether or not an egg dropped from that floor will break. If an egg breaks when dropped from floor i, then all eggs are guaranteed to break when dropped from any floor j = i. Likewise, if an egg doesn't break when dropped from floor i, then all eggs are guaranteed to never break when dropped from any floor j = i.
+
+We can define Solvable(F, D, B) to be true if and only if there exists an algorithm to determine whether or not an egg will break when dropped from any floor of a building with F floors, with the following restrictions: you may drop a maximum of D eggs (one at a time, from any floors of your choosing), and you may break a maximum of B eggs. You can assume you have at least D eggs in your possession.
+
+Input
+
+The first line of input gives the number of cases, N. N test cases follow. Each case is a line formatted as:
+
+F D B
+Solvable(F, D, B) is guaranteed to be true for all input cases.
+
+Output
+
+For each test case, output one line containing "Case #x: " followed by three space-separated integers: Fmax, Dmin, and Bmin. The definitions are as follows:
+
+Fmax is defined as the largest value of F' such that Solvable(F', D, B) is true, or -1 if this value would be greater than or equal to 232 (4294967296).
+(In other words, Fmax = -1 if and only if Solvable(232, D, B) is true.)
+Dmin is defined as the smallest value of D' such that Solvable(F, D', B) is true.
+Bmin is defined as the smallest value of B' such that Solvable(F, D, B') is true.
+Limits
+
+1 = N = 100.
+
+Small dataset
+
+1 = F = 100,
+1 = D = 100,
+1 = B = 100.
+
+Large dataset
+
+1 = F = 2000000000,
+1 = D = 2000000000,
+1 = B = 2000000000.
+
+Sample
+
+
+Input 
+
+Output 
+2
+3 3 3
+7 5 3
+
+Case #1: 7 2 1
+Case #2: 25 3 2
+
+Problem D. Shopping Plan
+Problem
+
+You have a list of items you need to buy today, and you know the locations (represented as points on a cartesian grid) of a few stores in the area. You also know which of these stores are selling each item on your list, and at what price each store sells it. Given the price of gas, what is the minimum amount you need to spend in order to buy all the items on your shopping list and then drive back home? You start and end the journey at your house, which is located at (0,0).
+
+To make matters interesting, some of the items on your list may be perishable. Whenever you make a purchase that includes one or more perishable items, you cannot drive to another store without first stopping back at your house. Every item on your shopping list is guaranteed to be sold by at least one store, so the trip will always be possible.
+
+Input
+
+The first line of input gives the number of cases, N. N test cases follow. Each case starts with a line formatted as
+
+num_items num_stores price_of_gas
+The next line contains the num_items items on your shopping list. The items will be space separated, and each item will consist of only lowercase letters. If an item is perishable, its name will be followed by a single exclamation point. There will be no duplicate items on your list. The next num_stores lines will each be formatted as
+
+x_pos y_pos item1:price1 item2:price2 ...
+Each of these lines gives the location of one store, along with the items available at that store and their corresponding prices. Only items which are on your shopping list will appear in these lists. Perishable items will not end with exclamation points on these lists. No item will be repeated in a store's list. Each store will offer at least one item for sale. No two stores will be at the same location, and no store will be located at (0,0).
+
+Output
+
+For each test case, output one line containing "Case #x: " followed by the minimum possible cost of the trip, rounded to seven decimal places. Don't forget about price_of_gas, which is the amount of money you must spend per unit distance that you drive.
+
+Limits
+
+1 = N = 100,
+0 = price_of_gas = 1000,
+-1000 = x_pos = 1000,
+-1000 = y_pos = 1000,
+1 = price of each item = 1000.
+
+Small dataset
+
+1 = num_items = 5,
+1 = num_stores = 10.
+
+Large dataset
+
+1 = num_items = 15,
+1 = num_stores = 50.
+
+Sample
+
+
+Input 
+
+Output 
+2
+1 2 10
+cookies
+0 2 cookies:400
+4 0 cookies:320
+3 3 5
+cookies milk! cereal
+0 2 cookies:360 cereal:110
+4 0 cereal:90 milk:150
+-3 -3 milk:200 cookies:200
+
+Case #1: 400.0000000
+Case #2: 519.2920690
+
+Problem C. T9 Spelling
+Problem
+
+The Latin alphabet contains 26 characters and telephones only have ten digits on the keypad. We would like to make it easier to write a message to your friend using a sequence of keypresses to indicate the desired characters. The letters are mapped onto the digits as shown below. To insert the character B for instance, the program would press 22. In order to insert two characters in sequence from the same key, the user must pause before pressing the key a second time. The space character ' ' should be printed to indicate a pause. For example, 2 2 indicates AA whereas 22 indicates B.
+
+
+Input
+
+The first line of input gives the number of cases, N. N test cases follow. Each case is a line of text formatted as
+
+desired_message
+Each message will consist of only lowercase characters a-z and space characters ' '. Pressing zero emits a space.
+
+Output
+
+For each test case, output one line containing "Case #x: " followed by the message translated into the sequence of keypresses.
+
+Limits
+
+1 = N = 100.
+
+Small dataset
+
+1 = length of message in characters = 15.
+
+Large dataset
+
+1 = length of message in characters = 1000.
+
+Sample
+
+
+Input 
+
+Output 
+4
+hi
+yes
+foo  bar
+hello world
+
+Case #1: 44 444
+Case #2: 999337777
+Case #3: 333666 6660 022 2777
+Case #4: 4433555 555666096667775553
+
+Problem A. Minimum Scalar Product
+Problem
+
+You are given two vectors v1=(x1,x2,...,xn) and v2=(y1,y2,...,yn). The scalar product of these vectors is a single number, calculated as x1y1+x2y2+...+xnyn.
+
+Suppose you are allowed to permute the coordinates of each vector as you wish. Choose two permutations such that the scalar product of your two new vectors is the smallest possible, and output that minimum scalar product.
+
+Input
+
+The first line of the input file contains integer number T - the number of test cases. For each test case, the first line contains integer number n. The next two lines contain n integers each, giving the coordinates of v1 and v2 respectively.
+Output
+
+For each test case, output a line
+
+Case #X: Y
+where X is the test case number, starting from 1, and Y is the minimum scalar product of all permutations of the two given vectors.
+Limits
+
+Small dataset
+
+T = 1000
+1 = n = 8
+-1000 = xi, yi = 1000
+
+Large dataset
+
+T = 10
+100 = n = 800
+-100000 = xi, yi = 100000
+
+Sample
+
+
+Input 
+ 	
+Output 
+ 
+2
+3
+1 3 -5
+-2 4 1
+5
+1 2 3 4 5
+1 0 1 0 1
+
+Case #1: -25
+Case #2: 6
+
+Problem A. All Your Base
+Problem
+
+In A.D. 2100, aliens came to Earth. They wrote a message in a cryptic language, and next to it they wrote a series of symbols. We've come to the conclusion that the symbols indicate a number: the number of seconds before war begins!
+
+Unfortunately we have no idea what each symbol means. We've decided that each symbol indicates one digit, but we aren't sure what each digit means or what base the aliens are using. For example, if they wrote "ab2ac999", they could have meant "31536000" in base 10 -- exactly one year -- or they could have meant "12314555" in base 6 -- 398951 seconds, or about four and a half days. We are sure of three things: the number is positive; like us, the aliens will never start a number with a zero; and they aren't using unary (base 1).
+
+Your job is to determine the minimum possible number of seconds before war begins.
+
+Input
+
+The first line of input contains a single integer, T. T test cases follow. Each test case is a string on a line by itself. The line will contain only characters in the 'a' to 'z' and '0' to '9' ranges (with no spaces and no punctuation), representing the message the aliens left us. The test cases are independent, and can be in different bases with the symbols meaning different things.
+
+Output
+
+For each test case, output a line in the following format:
+
+Case #X: V
+Where X is the case number (starting from 1) and V is the minimum number of seconds before war begins.
+Limits
+
+1 = T = 100
+The answer will never exceed 1018
+Small dataset
+
+1 = the length of each line < 10
+
+Large dataset
+
+1 = the length of each line < 61
+
+Sample
+
+
+Input 
+ 	
+Output 
+ 
+3
+11001001
+cats
+zig
+Case #1: 201
+Case #2: 75
+Case #3: 11
+
+Problem C. Bribe the Prisoners
+Problem
+
+In a kingdom there are prison cells (numbered 1 to P) built to form a straight line segment. Cells number i and i+1 are adjacent, and prisoners in adjacent cells are called "neighbours." A wall with a window separates adjacent cells, and neighbours can communicate through that window.
+
+All prisoners live in peace until a prisoner is released. When that happens, the released prisoner's neighbours find out, and each communicates this to his other neighbour. That prisoner passes it on to his other neighbour, and so on until they reach a prisoner with no other neighbour (because he is in cell 1, or in cell P, or the other adjacent cell is empty). A prisoner who discovers that another prisoner has been released will angrily break everything in his cell, unless he is bribed with a gold coin. So, after releasing a prisoner in cell A, all prisoners housed on either side of cell A - until cell 1, cell P or an empty cell - need to be bribed.
+
+Assume that each prison cell is initially occupied by exactly one prisoner, and that only one prisoner can be released per day. Given the list of Q prisoners to be released in Q days, find the minimum total number of gold coins needed as bribes if the prisoners may be released in any order.
+
+Note that each bribe only has an effect for one day. If a prisoner who was bribed yesterday hears about another released prisoner today, then he needs to be bribed again.
+
+Input
+
+The first line of input gives the number of cases, N. N test cases follow. Each case consists of 2 lines. The first line is formatted as
+
+P Q
+where P is the number of prison cells and Q is the number of prisoners to be released.
+This will be followed by a line with Q distinct cell numbers (of the prisoners to be released), space separated, sorted in ascending order.
+Output
+
+For each test case, output one line in the format
+
+Case #X: C
+where X is the case number, starting from 1, and C is the minimum number of gold coins needed as bribes.
+Limits
+
+1 = N = 100
+Q = P
+Each cell number is between 1 and P, inclusive.
+
+Small dataset
+
+1 = P = 100
+1 = Q = 5
+Large dataset
+
+1 = P = 10000
+1 = Q = 100
+Sample
+
+
+Input 
+ 	
+Output 
+ 
+2
+8 1
+3
+20 3
+3 6 14
+Case #1: 7
+Case #2: 35
+Note
+
+In the second sample case, you first release the person in cell 14, then cell 6, then cell 3. The number of gold coins needed is 19 + 12 + 4 = 35. If you instead release the person in cell 6 first, the cost will be 19 + 4 + 13 = 36.
+
+Problem A. Centauri Prime
+Problem
+
+Back in the old days before the creation of the mighty Centauri Republic, the planet Centauri Prime was split into several independent kingdoms. The kingdom of Mollaristan was ruled by king Loatold, while the kingdom of Auritania was under the rule of queen Elana. In fact, it just so happened that every kingdom whose name ended in a consonant was ruled by a king, while every kingdom whose name ended in a vowel was ruled by a queen. Also because of an amazing coincidence, all kingdoms whose named ended in the letter 'y' were constantly in a state of turmoil and were not ruled by anyone. Can you write a program that will determine the current rulers of several countries, given the countries' names?
+
+Input
+
+The first line of the input gives the number of test cases, T. T lines follow, each one containing the name of one country. Country names will consist of only lower case English letters, starting with a capital letter. There will be no other characters on any line, and no empty lines.
+
+Output
+
+For each test case, output one line containing "Case #x: C is ruled by Y.", where x is the case number (starting from 1), C is the country name, and Y is either "a king", "a queen" or "nobody".
+
+Be careful with capitalization and the terminating period. Your output must be in exactly this format. See the examples below.
+
+Limits
+
+1 = T = 300.
+
+Small dataset
+
+Each country name will have between 3 and 20 letters.
+
+Large dataset
+
+Each country name will have at most 100 letters.
+
+Sample
+
+
+Input 
+ 	
+Output 
+ 
+3
+Mollaristan
+Auritania
+Zizily	 Case #1: Mollaristan is ruled by a king.
+Case #2: Auritania is ruled by a queen.
+Case #3: Zizily is ruled by nobody.
+
+Problem B. Music Collection
+Problem
+
+Audio Phil has a huge music collection, and he is very particular about the songs he listens to. Each song has a name that is a string of characters. His music player has a search feature that lets Phil type a substring into the search box, and the player then lists all songs whose names contain the substring. If there is exactly one song that matches the search, then Phil can hit the Enter key to play that song.
+
+Phil hates using the mouse, and he doesn't like typing too much, so he insists on always typing the shortest possible substring that will match exactly the one song that he wants to play at this moment. Could you help him find his optimal search query?
+
+Input
+
+The first line of the input gives the number of test cases, T. T test cases follow. Each one starts with a line containing a single number N. The next N lines each contain one song name -- these are all of the songs in Phil's collection.
+
+Each song name will consist of only letters, spaces and the hyphen character (-). All songs in Phil's collection will be unique and at most 100 characters in length. Song names are case insensitive, so "dZihan" is the same is "Dzihan". The search algorithm is also case insensitive.
+
+Output
+
+For each test case, output one line containing "Case #x:", where x is the case number (starting from 1). After that, print N lines, one for each song in Phil's collection, in the order that the songs were given in the input. For each song, print the shortest string of characters that will uniquely find that song. If there are several correct answers, print the lexicographically smallest one. Put double quotes around each string. If there is no correct answer, print ":(" without the double quotes.
+
+Note that upper case letters come lexicographically before lower case letters, hyphen comes before all letters, and space comes before hyphen.
+
+Limits
+
+1 = T = 100.
+
+Small dataset
+
+1 = N = 10.
+
+Large dataset
+
+1 = N = 100.
+
+Sample
+
+
+Input 
+ 	
+Output 
+ 
+5
+6
+A Perfect Circle - Gravity
+Aimee Mann - You Do
+Aqualung - Cinderella
+Arcade Fire - Haiti
+Art of Noise - Pleure
+ATB - Marrakech
+2
+Hybrid - Altitude
+Kings of Convenience - The Build-up
+3
+aaaaaaaabb
+aaaaaaabbb
+ababababab
+3
+butter
+fly
+butterfly
+1
+Unknown Artist - Track One
+
+Case #1:
+"V"
+" D"
+"Q"
+" F"
+"S"
+"B"
+Case #2:
+"A"
+"C"
+Case #3:
+"AAAAAAAA"
+"BBB"
+"BA"
+Case #4:
+:(
+:(
+"RF"
+Case #5:
+""
+
+Problem C. Irregular Expressions
+Problem
+
+You are competing at the 2011 World Witch and Warlock Tournament. In this round of the competition, the Head Witch challenges all contestants to test their spell deflection skills. Contestants stand in a circle, and the Head Witch stands in the center and starts casting spells. The contestants then have to cast counter-spells as quickly as possible. Any contestant who is too slow risks being turned into a toad or petrified.
+
+Each spell that the Head Witch casts consists of three words -- the start, the middle and the end. Each word consists of one or more syllables. The start word is always the same as the end word and consists of at least two syllables. A syllable consists of any number of letters, including exactly one vowel. There are 5 vowels: 'a', 'e', 'i', 'o' and 'u'. All other letters are considered to be consonants, including the letter 'y'.
+
+Examples of valid syllables are "ab", "ra", "cad", "o" and "shabbr". Strings like "ero" and "grrgh" are not valid syllables.
+
+To make things more difficult, the Head Witch speaks very fast, so you cannot easily figure out where one word ends and another one begins. What's worse, she sometimes says some useless gibberish before and after the spell in order to confuse the contestants, or she may not even cast any spell at all and say something completely unrelated instead.
+
+For example, she may say "abracadabra", which is a valid spell because it consists of the words "abra", "cad" and "abra", with the start word and the end word being the same. The word "abra" consists of two syllables -- "ab" and "ra". The word "cad" consists of one syllable -- "cad". (Alternatively, "abra" could also be interpreted as "a-bra" or "abr-a".)
+
+The Head Witch might also say "kajabbamajabbajab", which contains the spell "jabba ma jabba". Or she might say "frufrumfuffle", which is gibberish and does not contain any spells.
+
+For each expression that the Head Witch says, you want to determine quickly whether the expression contains a spell or not. Your molecular integrity depends on it! Fortunately, you have managed to conjure up a computer. Now all you need to do is determine which of the Witch's expressions contain spells.
+
+Input
+
+The first line of the input gives the number of test cases, T. T lines follow. Each one contains an expression, consisting of one or more lower case English letters and no spaces.
+
+Output
+
+For each test case, output one line containing "Case #x: y", where x is the case number (starting from 1) and y is either "Spell!" or "Nothing." (be careful with spelling and punctuation).
+
+Limits
+
+1 = T = 100.
+Small dataset
+
+At most 20 characters in each expression.
+
+Large dataset
+
+At most 100 characters in each expression.
+
+Sample
+
+
+Input 
+ 	
+Output 
+ 
+4
+abracadabra
+kajabbamajabbajab
+frufrumfuffle
+schprexityschprex
+Case #1: Spell!
+Case #2: Spell!
+Case #3: Nothing.
+Case #4: Nothing.
+
+Problem D. Twibet
+Problem
+
+The holy country of Twibet has N monks. Each monk has a unique number, from 1 to N. They do not use names for religious reasons. The monks are constantly on the move, slowly walking around Twibet. Each monk follows exactly one other monk.
+
+Most of the time, every monk is silent, but on day K, monk number K stops, turns around and whispers the 140 Words of Wisdom. The whisper is quiet, so only the monk's immediate followers can hear it. At that point, each of his followers stops, turns around and whispers the same words to each of his own followers. This chain continues -- each follower who has just heard the Words, but has not yet whispered the Words today, stops and whispers to his followers.
+
+After all of the monks who could have heard the words have whispered them, they all turn back around and continue walking as usual... until the next day, when this all starts again, but this time starting with a different monk.
+
+How many monks will whisper the 140 Words of Wisdom on day K, for each K between 1 and N?
+
+Input
+
+The first line of the input gives the number of test cases, T. T test cases follow. Each one starts with a line containing a single integer N. The next line contains N space-separated integers F1, F2, ..., FN. Monk 1 follows monk F1. Monk 2 follows monk F2, etc.
+
+Output
+
+For each test case, output one line containing "Case #x:", where x is the case number (starting from 1). Then output N lines, one for each day. The first line should contain the number of monks who will whisper the Words on day 1. The next line -- on day 2, etc.
+
+Limits
+
+1 = T = 100.
+No monk will immediately follow himself (Fk is never equal to k).
+
+Small dataset
+
+2 = N = 10.
+
+Large dataset
+
+2 = N = 1000.
+
+Sample
+
+
+Input 
+ 	
+Output 
+ 
+2
+3
+2 3 1
+4
+2 3 2 1
+Case #1:
+3
+3
+3
+Case #2:
+2
+4
+4
+1
+Explanation
+
+In Case #1, all 3 monks are walking around in a circle. Whenever one of them whispers the Words, his follower whispers next, and the the remaining monk whispers after that. On each of the 3 days, all 3 monks will eventually whisper the Words.
+
+In Case #2, 1 follows 2, 2 follows 3, 3 follows 2, and 4 follows 1. On day 1, when monk 1 whispers first, monk 4 hears and whispers next; monks 2 and 3 will not hear the words that day. On day 2, monk 2 whispers first; monks 1 and 3 hear and whisper next; finally, monk 4 hears monk 1 and whispers last. On day 3, monks whisper in the order 3, 2, 1, 4. On day 4, monk 4 whispers the Words and no one hears him.
