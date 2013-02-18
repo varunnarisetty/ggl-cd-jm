@@ -12,25 +12,26 @@ def getSmallestNeighbour(arry, x, y):
     ''' returns index of smallest value surrounding the value at position
     in case of tie N(North),W,E,S order is used'''
     ar = []
+    logging.info('x,y '+str(x)+','+str(y))
     if y > 0:
-        ar.append((arry[x][y - 1], x, y - 1, 0))  # North
+        ar.append((arry[x][y - 1]['data'], x, y - 1, 0))  # North
     if x > 0:
-        ar.append((arry[x - 1][y], x - 1, y, 1))  # West  
+        ar.append((arry[x - 1][y]['data'], x - 1, y, 1))  # West  
     if x < len(arry[0]) - 1:
-        ar.append((arry[x + 1][y], x + 1, y, 2))  # East
+        ar.append((arry[x + 1][y]['data'], x + 1, y, 2))  # East
     if y < len(arry) - 1:
-        ar.append((arry[x][y + 1], x, y + 1, 3))  # South
+        ar.append((arry[x][y + 1]['data'], x, y + 1, 3))  # South
     ar.sort(key=lambda d:d[0])
-    logging.info('ar '+str(ar))
+    #logging.info('ar '+str(ar))
     # see if it is sink: current element is smaller than all its surrounding elements
-    if ar[0][0] > arry[x][y]:
-        return (arry[x][y], x, y, -1)
+    if ar[0][0] >= arry[x][y]:
+        arry[x][y]['nxt']=None
     if ar[0][0] != ar[1][0]:
-        return ar[0]
+        arry[x][y]['nxt']=(ar[0][1],ar[0][2])
     else :
         # tie : we return as per the direction of the item
-        if ar[0][3] < ar[1][3]: return ar[0]
-        else : return ar[1]
+        if ar[0][3] < ar[1][3]: arry[x][y]['nxt']=(ar[0][1],ar[0][2])    
+        else : arry[x][y]['nxt']=(ar[1][1],ar[1][2])
     
     
 def connectNode(connected_map, smallest_neighbour, current_node):
@@ -67,12 +68,12 @@ def main(filename):
         (m, n) = [int(item) for item in fd.readline().split()]
         alt_map = []
         for i in range(m):
-            alt_map.append([int(k) for k in fd.readline().split()])
+            alt_map.append([{'data':int(k),'nxt':(-1,-1)} for k in fd.readline().split()])
+        #logging.info(alt_map)
+        for i in xrange(0,3):
+            for j in xrange(0,3):
+                getSmallestNeighbour(alt_map, i, j)
         logging.info(alt_map)
-        connected_map = []
-        for i in range(m):
-            for j in range(n):
-                connected_map=connectNode(connected_map,getSmallestNeighbour(alt_map, i, j), (alt_map[i][j], i, j, -1))
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
