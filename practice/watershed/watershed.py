@@ -6,16 +6,16 @@ Created on Feb 16, 2013
 import sys
 import datetime
 import logging
-from platform import node
-import itertools
-import random
+import pprint
+import collections
+import string
 
 class Node:
-    cnt=0
+    letters=[]
     def __init__(self, data, nextNode=None):
         self.__data = data
         self.__nextNode = nextNode
-        self.__label=None
+        self.__label = None
 
     def get_data(self):
         return self.__data
@@ -34,13 +34,12 @@ class Node:
 
     def getLabel(self):
         '''recursively calculates and returns labels'''
-        #logging.info(self)
-        if self.__label==None:
-            if self.__nextNode==None or self.__nextNode==self:
-                self.__label=str(Node.cnt)
-                Node.cnt+=1
+        # logging.info(self)
+        if self.__label == None:
+            if self.__nextNode == None or self.__nextNode == self:
+                self.__label = Node.letters.pop(0)
             else:
-                self.__label=self.__nextNode.getLabel()
+                self.__label = self.__nextNode.getLabel()
         return self.__label
     
     def __str__(self):
@@ -53,7 +52,7 @@ def getSmallestNeighbour(arry, x, y):
     ''' returns index of smallest value surrounding the value at position
     in case of tie N(North),W,E,S order is used'''
     ar = [] 
-    #logging.info('x,y '+str(x)+','+str(y))
+    # logging.info('x,y '+str(x)+','+str(y))
     if y > 0:
         ar.append((arry[x][y - 1].get_data(), x, y - 1, 0))  # West
     if x > 0:
@@ -63,23 +62,23 @@ def getSmallestNeighbour(arry, x, y):
     if y < len(arry[0]) - 1:
         ar.append((arry[x][y + 1].get_data(), x, y + 1, 3))  # East
     ar.sort(key=lambda d:d[0])
-    #logging.info('ar '+str(ar))
+    # logging.info('ar '+str(ar))
     # see if it is sink: current element is smaller than all its surrounding elements
     if ar[0][0] >= arry[x][y].get_data():
         arry[x][y].set_next_node(arry[x][y])
-        logging.info(str(arry[x][y])+'sync')
+        #logging.info(str(arry[x][y]) + 'sync')
     elif ar[0][0] != ar[1][0]:
         arry[x][y].set_next_node(arry[ar[0][1]][ar[0][2]])
-        logging.info('%d %d --> %d %d'%(x,y,ar[0][1],ar[0][2]))
+        #logging.info('%d %d --> %d %d' % (x, y, ar[0][1], ar[0][2]))
     else :
         # tie : we return as per the direction of the item
         if ar[0][3] < ar[1][3]: 
             arry[x][y].set_next_node(arry[ar[0][1]][ar[0][2]])
-            logging.info('%d %d --> %d %d'%(x,y,ar[0][1],ar[0][2]))    
+            #logging.info('%d %d --> %d %d' % (x, y, ar[0][1], ar[0][2]))    
         else : 
             arry[x][y].set_next_node(arry[ar[1][1]][ar[1][2]]) 
-            logging.info('%d %d --> %d %d'%(x,y,ar[1][1],ar[1][2]))
-            
+            #logging.info('%d %d --> %d %d' % (x, y, ar[1][1], ar[1][2]))
+    
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
@@ -89,14 +88,18 @@ if __name__ == '__main__':
     tm = datetime.datetime.now()
     fd = open(st, 'r')      
     testCount = int(fd.readline())
+    opf = open(st[:st.find('.')] + '.out', 'w')
     for i in range(testCount):
         (m, n) = [int(item) for item in fd.readline().split()]
         alt_map = []
         for i in range(m):
             alt_map.append([Node(int(k)) for k in fd.readline().split()])
-        #logging.info(alt_map)
+        # logging.info(alt_map)
         [getSmallestNeighbour(alt_map, i, j) for j in range(n) for i in range(m)]
+        Node.letters=[i for i in string.ascii_lowercase]
         [j.getLabel() for i in alt_map for j in i ]
-        logging.info(alt_map)
-        print ('\n'.join(alt_map))
+        #logging.info(pprint.pformat(alt_map))
+        letter_mappings={}
+        pprint.pprint(alt_map)
+    opf.close()    
     logging.info(datetime.datetime.now() - tm)
