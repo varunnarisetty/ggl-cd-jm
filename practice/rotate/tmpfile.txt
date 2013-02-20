@@ -1,3 +1,5 @@
+private static String getMatchedColor(String[][] matrix, int len) {
+
 		int rows = matrix.length;
 		int colm = matrix[0].length;
 		boolean redFlag = false;
