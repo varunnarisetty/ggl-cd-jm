@@ -100,7 +100,7 @@ private static String getMatchedColor(String[][] matrix, int len) {
 		}else{
 			return "Neither";
 		}
-		
+}		
 		
 
 
