@@ -1,0 +1,173 @@
+		int rows = matrix.length;
+		int colm = matrix[0].length;
+		boolean redFlag = false;
+		boolean blueFlag = false;
+		for(int i = rows-1;i>=0;i--){
+			if(matrix[i][colm-1].equals(".")){
+				break;
+			}
+			for (int j = colm-1; j >=0; j--) {
+				
+				
+				if(matrix[i][j].equals(".")){
+					break;
+				}
+				if(!redFlag && matrix[i][j].equals("R")){
+					
+					boolean match = getUpMatch(matrix,i,j,"R",len);
+					if(match){
+						redFlag = true;
+						if(blueFlag == true){
+							return "Both";
+						}
+					}else{
+						match = getLeftMatch(matrix,i,j,"R",len);
+						if(match){
+							redFlag = true;
+							if(blueFlag == true){
+								return "Both";
+							}
+						}else{
+							match = getRightDglMatch(matrix,i,j,"R",len);
+							if(match){
+								redFlag = true;
+								if(blueFlag == true){
+									return "Both";
+								}
+							}else{
+								match = getLeftDglMatch(matrix,i,j,"R",len);
+								if(match){
+									redFlag = true;
+									if(blueFlag == true){
+										return "Both";
+									}
+								}
+							}
+						}
+					}
+				}
+				if(!blueFlag && matrix[i][j].equals("B")){
+					boolean match = getUpMatch(matrix,i,j,"B",len);
+					if(match){
+						blueFlag = true;
+						if(redFlag == true){
+							return "Both";
+						}
+					}else{
+						match = getLeftMatch(matrix,i,j,"B",len);
+						if(match){
+							blueFlag = true;
+							if(redFlag == true){
+								return "Both";
+							}
+						}else{
+							match = getRightDglMatch(matrix,i,j,"B",len);
+							if(match){
+								blueFlag = true;
+								if(redFlag == true){
+									return "Both";
+								}
+							}else{
+								match = getLeftDglMatch(matrix,i,j,"B",len);
+								if(match){
+									blueFlag = true;
+									if(redFlag == true){
+										return "Both";
+									}
+								}
+							}
+						}
+					}
+				
+				}
+				
+			}
+			
+		}
+		
+		if(redFlag && blueFlag){
+			return "Both";
+		}
+		if(redFlag){
+			return "RED";
+			
+		}
+		if(blueFlag){
+			return "Blue";
+			
+		}else{
+			return "Neither";
+		}
+		
+		
+
+
+
+ private static boolean getLeftDglMatch(String[][] matrix, int i, int j,
+			String string, int len) {
+		
+		int counter = 1;
+		for(int p=i-1,q = j-1;p>=0 && q >= 0;p--,q--){
+			if(matrix[p][q].equals(string)){
+				counter++;
+				if(counter >= len){
+					return  true;
+				}
+			}else{
+				return false;
+			}
+		}
+		
+		return false;
+	}
+	private static boolean getRightDglMatch(String[][] matrix, int i, int j,
+			String string, int len) {
+		int colm = matrix[0].length;
+		int counter = 1;
+		for(int p=i-1,q = j+1;p>=0 && q < colm;p--,q++){
+			if(matrix[p][q].equals(string)){
+				counter++;
+				if(counter >= len){
+					return  true;
+				}
+			}else{
+				return false;
+			}
+		}
+		
+		return false;
+	}
+	private static boolean getLeftMatch(String[][] matrix, int i, int j,
+			String string, int len) {
+		
+		int counter = 1;
+		for(int k=j-1;k>=0;k--){
+			if(matrix[i][k].equals(string)){
+				counter++;
+				if(counter >= len){
+					return  true;
+				}
+			}else{
+				return false;
+			}
+		}
+		
+		return false;
+	}
+	private static boolean getUpMatch(String[][] matrix, int i, int j,
+			String string, int len) {
+		
+		int counter = 1;
+		for(int k=i-1;k>=0;k--){
+			if(matrix[k][j].equals(string)){
+				counter++;
+				if(counter >= len){
+					return  true;
+				}
+			}else{
+				return false;
+			}
+		}
+		
+		return false;
+	}
