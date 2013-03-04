@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from pprint import pprint
 
 ########################################################################
 #   Solves Google CodeJam 2010 Round 1A's problem A
@@ -37,9 +38,10 @@ def solve():
                     board[k][i] = board[k-1][i]
                 board[0][i] = '#'
     
+    
     blue = False
     red = False
-    
+        
     # Check for Vertical and horizontal
     for i in range(n):
         s = ''.join(board[i])
@@ -77,7 +79,7 @@ def solve():
             blue = True
         if 'R' * K in s:
             red = True
-    
+    pprint(board)    
     if blue and red:
         return 'Both'
     if blue:
@@ -85,6 +87,7 @@ def solve():
     if red:
         return 'Red'
     return 'Neither'
+
 
 if __name__ == '__main__':
     t = int(input())

@@ -69,29 +69,30 @@ def main():
                 for j in range(n):
                     if ar[i][j] != '.':
                         if isR == None and ar[i][j] == 'R':
-                            leftCnt = getConsecutiveCount(ar, 'R', i - 1, j - 1, -1, -1)
-                            rightCnt = getConsecutiveCount(ar, 'R', i + 1, j + 1, 1, 1)
+                            leftCnt = getConsecutiveCount(ar, 'R', i, j, 1, -1)
+                            rightCnt = getConsecutiveCount(ar, 'R', i, j, 1, 1)
                             # print 'calculating ',leftCnt,',',rightCnt
-                            cnt = leftCnt + 1 + rightCnt
                             # print 'diag R',i,j,cnt,n_seq
-                            if cnt >= n_seq : isR = cnt
+                            if leftCnt >= n_seq or rightCnt>=n_seq : isR = True
                             
                         if isB == None and ar[i][j] == 'B':
-                            # print 'calculating ',getConsecutiveCount(ar, 'B', i, j, -1, -1),',',getConsecutiveCount(ar, 'B', i, j, 1, 1)
-                            cnt = getConsecutiveCount(ar, 'B', i - 1, j - 1, -1, -1) + 1 + getConsecutiveCount(ar, 'B', i + 1, j + 1, 1, 1)
-                            # print 'diag B',i,j,cnt,n_seq
-                            if cnt >= n_seq : isB = cnt
+                            leftCnt = getConsecutiveCount(ar, 'B', i, j, 1, -1)
+                            rightCnt = getConsecutiveCount(ar, 'B', i, j, 1, 1)
+                            # print 'calculating ',leftCnt,',',rightCnt
+                            # print 'diag R',i,j,cnt,n_seq
+                            if leftCnt >= n_seq or rightCnt>=n_seq : isB = True
+                            
                         
         ops = ''    
         if isB != None and isR != None: ops = 'Both'
         elif isB == None and isR == None : ops = 'Neither'
         elif isB != None : ops = 'Blue'
         else : ops = 'Red'
+        
         opf.write('Case #%d: %s\n'%(testCase+1,ops))
+        pprint(ar)
+        print ('Case #%d: %s'%(testCase+1,ops))
         
 
 if __name__ == '__main__':
-    x = '..abc..'
-    y = [i for i in x if i != '.']
-    # pprint( y)
     main()
