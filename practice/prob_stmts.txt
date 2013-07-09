@@ -792,3 +792,85 @@ Explanation
 In Case #1, all 3 monks are walking around in a circle. Whenever one of them whispers the Words, his follower whispers next, and the the remaining monk whispers after that. On each of the 3 days, all 3 monks will eventually whisper the Words.
 
 In Case #2, 1 follows 2, 2 follows 3, 3 follows 2, and 4 follows 1. On day 1, when monk 1 whispers first, monk 4 hears and whispers next; monks 2 and 3 will not hear the words that day. On day 2, monk 2 whispers first; monks 1 and 3 hear and whisper next; finally, monk 4 hears monk 1 and whispers last. On day 3, monks whisper in the order 3, 2, 1, 4. On day 4, monk 4 whispers the Words and no one hears him.
+
+
+
+
+public void solution(String inputFilePath ) throws IOException{    
+
+ 	BufferedReader br = new BufferedReader(new FileReader(inputFilePath));
+
+		ArrayList<ArrayList<Node>> graph = new ArrayList<ArrayList<Node>>();
+		for(int i =0;i<80;i++){
+
+			String[] line = br.readLine().split(",");
+			ArrayList<Node> innerList = new ArrayList<Node>();
+			for(int j =0;j<80;j++){
+
+				innerList.add(new Node(Integer.parseInt(line[j])));
+				
+			}
+			graph.add(innerList);
+		}
+
+		getNode(graph, 0, 0).cost = getNode(graph, 0, 0).val; 
+		
+		for(int i =0;i<80;i++){
+
+			ArrayList<Node> innerList = graph.get(i);
+			
+			for(int j =0;j<80;j++){
+
+				Node node = innerList.get(j);
+				
+				if(!node.isOut){
+					
+					if(j<79){
+						Node node2 = getNode(graph, i, j+1);
+						int cost = node.cost + node2.val;
+						if(cost < node2.cost){
+							node2.cost = cost;
+						}
+						
+					}
+					
+					if(i <79){
+						Node node2 = getNode(graph, i+1, j);
+						int cost = node.cost + node2.val;
+						if(cost < node2.cost){
+							node2.cost = cost;
+						}
+					}
+					
+					node.isOut = true;
+				}
+			}
+			
+		}
+		
+		System.out.println("Finals cost --->"+getNode(graph, 79, 79).cost);
+
+	}
+	
+	public Node getNode(ArrayList<ArrayList<Node>> graph,int i,int j){
+		
+		
+		
+		return graph.get(i).get(j);
+	}
+	
+	class Node{
+		
+		int val;
+		int cost;
+		boolean isOut;
+		
+		
+		Node(int i){
+			val = i;
+			isOut = false;
+			cost = 80*80*9999;
+		}
+		
+	}
+ 
